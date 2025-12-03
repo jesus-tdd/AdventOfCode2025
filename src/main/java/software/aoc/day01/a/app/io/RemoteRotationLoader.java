@@ -1,7 +1,7 @@
 package software.aoc.day01.a.app.io;
 
-import software.aoc.day01.a.io.DirectionLoader;
-import software.aoc.day01.a.model.Rotation.Direction;
+import software.aoc.day01.a.io.RotationLoader;
+import software.aoc.day01.a.model.Rotation;
 
 import java.io.*;
 import java.net.URL;
@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class RemoteDirectionLoader implements DirectionLoader {
-    private final Function<String, Direction> deserialize;
+public class RemoteRotationLoader implements RotationLoader {
+    private final Function<String, Rotation> deserialize;
 
-    public RemoteDirectionLoader(Function<String, Direction> deserialize) {
+    public RemoteRotationLoader(Function<String, Rotation> deserialize) {
         this.deserialize = deserialize;
     }
 
     @Override
-    public List<Direction> loadAll() {
+    public List<Rotation> loadAll() {
         try {
             return loadFrom(new URL("https://adventofcode.com/2025/day/1/input"));
         } catch (IOException e) {
@@ -26,14 +26,14 @@ public class RemoteDirectionLoader implements DirectionLoader {
         }
     }
 
-    private List<Direction> loadFrom(URL url) throws IOException {
+    private List<Rotation> loadFrom(URL url) throws IOException {
         try (InputStream is = toInputStream(url.openConnection())) {
             return loadFrom(toReader(is));
         }
     }
 
-    private List<Direction> loadFrom(BufferedReader reader) throws IOException {
-        ArrayList<Direction> list = new ArrayList<>();
+    private List<Rotation> loadFrom(BufferedReader reader) throws IOException {
+        List<Rotation> list = new ArrayList<>();
         while (true) {
             String line = reader.readLine();
             if (line == null) break;
