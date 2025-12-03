@@ -1,5 +1,6 @@
 package software.aoc.day01.a.app.io;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import software.aoc.day01.a.io.RotationLoader;
 import software.aoc.day01.a.model.Rotation;
 
@@ -9,6 +10,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 public class RemoteRotationLoader implements RotationLoader {
     private final Function<String, Rotation> deserialize;
@@ -18,7 +20,7 @@ public class RemoteRotationLoader implements RotationLoader {
     }
 
     @Override
-    public List<Rotation> loadAll() {
+    public Stream<Rotation> loadAll() {
         try {
             return loadFrom(new URL("https://adventofcode.com/2025/day/1/input"));
         } catch (IOException e) {
@@ -26,27 +28,32 @@ public class RemoteRotationLoader implements RotationLoader {
         }
     }
 
-    private List<Rotation> loadFrom(URL url) throws IOException {
-        try (InputStream is = toInputStream(url.openConnection())) {
+    private Stream<Rotation> loadFrom(URL url) throws IOException {
+        try (InputStream is = getOpenConnection(url).getInputStream()) {
             return loadFrom(toReader(is));
         }
     }
 
-    private List<Rotation> loadFrom(BufferedReader reader) throws IOException {
+    private static URLConnection getOpenConnection(URL url) throws IOException {
+        Dotenv dotenv = Dotenv.load();
+        String session = dotenv.get("AOC_SESSION");
+        System.out.println("Session loaded: " + session);
+        URLConnection c = url.openConnection();
+        c.setRequestProperty("Cookie", "session="+session);
+        return c;
+    }
+
+    private Stream<Rotation> loadFrom(BufferedReader reader) throws IOException {
         List<Rotation> list = new ArrayList<>();
         while (true) {
             String line = reader.readLine();
             if (line == null) break;
             list.add(deserialize.apply(line));
         }
-        return list;
+        return list.stream();
     }
 
     private BufferedReader toReader(InputStream is) {
         return new BufferedReader(new InputStreamReader(is));
-    }
-
-    private InputStream toInputStream(URLConnection connection) throws IOException {
-        return new BufferedInputStream(connection.getInputStream());
     }
 }
