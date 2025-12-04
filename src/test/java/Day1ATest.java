@@ -11,16 +11,16 @@ public class Day1ATest {
     @Test
     public void rotate_dial_left() {
         Dial dial = new Dial(0, 99, 50);
-        assertThat(dial.rotate(new Rotation(L, 1)).pointingAt()).isEqualTo(49);
-        assertThat(dial.rotate(new Rotation(L, 50)).pointingAt()).isEqualTo(0);
-        assertThat(dial.rotate(new Rotation(L, 51)).pointingAt()).isEqualTo(99);
+        assertThat(dial.rotate(new Rotation(L, 1)).value()).isEqualTo(49);
+        assertThat(dial.rotate(new Rotation(L, 50)).value()).isEqualTo(0);
+        assertThat(dial.rotate(new Rotation(L, 51)).value()).isEqualTo(99);
     }
 
     @Test
     public void rotate_dial_right() {
         Dial dial = new Dial(0, 99, 50);
-        assertThat(dial.rotate(new Rotation(R, 1)).pointingAt()).isEqualTo(51);
-        assertThat(dial.rotate(new Rotation(R, 50)).pointingAt()).isEqualTo(0);
-        assertThat(dial.rotate(new Rotation(R, 51)).pointingAt()).isEqualTo(1);
+        assertThat(dial.rotate(new Rotation(R, 1)).value()).isEqualTo(51);
+        assertThat(dial.rotate(new Rotation(R, 50)).value()).isEqualTo(0);
+        assertThat(dial.rotate(new Rotation(R, 51)).value()).isEqualTo(1);
     }
 }
