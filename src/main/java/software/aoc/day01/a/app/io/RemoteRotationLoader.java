@@ -10,7 +10,6 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 public class RemoteRotationLoader implements RotationLoader {
     private final Function<String, Rotation> deserialize;
@@ -20,7 +19,7 @@ public class RemoteRotationLoader implements RotationLoader {
     }
 
     @Override
-    public Stream<Rotation> loadAll() {
+    public List<Rotation> loadAll() {
         try {
             return loadFrom(new URL("https://adventofcode.com/2025/day/1/input"));
         } catch (IOException e) {
@@ -28,7 +27,7 @@ public class RemoteRotationLoader implements RotationLoader {
         }
     }
 
-    private Stream<Rotation> loadFrom(URL url) throws IOException {
+    private List<Rotation> loadFrom(URL url) throws IOException {
         try (InputStream is = getOpenConnection(url).getInputStream()) {
             return loadFrom(toReader(is));
         }
@@ -43,14 +42,14 @@ public class RemoteRotationLoader implements RotationLoader {
         return c;
     }
 
-    private Stream<Rotation> loadFrom(BufferedReader reader) throws IOException {
+    private List<Rotation> loadFrom(BufferedReader reader) throws IOException {
         List<Rotation> list = new ArrayList<>();
         while (true) {
             String line = reader.readLine();
             if (line == null) break;
             list.add(deserialize.apply(line));
         }
-        return list.stream();
+        return list;
     }
 
     private BufferedReader toReader(InputStream is) {
