@@ -36,7 +36,6 @@ public class RemoteRotationLoader implements RotationLoader {
     private static URLConnection getOpenConnection(URL url) throws IOException {
         Dotenv dotenv = Dotenv.load();
         String session = dotenv.get("AOC_SESSION");
-        System.out.println("Session loaded: " + session);
         URLConnection c = url.openConnection();
         c.setRequestProperty("Cookie", "session="+session);
         return c;
