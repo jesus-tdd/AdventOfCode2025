@@ -1,9 +1,9 @@
-package software.aoc.day01.a.app;
+package software.aoc.day01.a;
 
-import software.aoc.day01.a.app.io.RemoteRotationLoader;
-import software.aoc.day01.a.model.Dial;
-import software.aoc.day01.a.model.Rotation;
-import software.aoc.day01.a.model.Rotation.Direction;
+import software.aoc.day01.common.io.RemoteRotationLoader;
+import software.aoc.day01.common.model.Dial;
+import software.aoc.day01.common.model.Rotation;
+import software.aoc.day01.common.model.Rotation.Direction;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class Main {
         int count = 0;
         for (Rotation rotation : rotations) {
             dial = dial.rotate(rotation);
-            if(dial.isPointingAt(0)) count++;
+            if (dial.isPointingAt(0)) count++;
         }
         System.out.println("Password: " + count);
     }

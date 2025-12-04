@@ -1,4 +1,4 @@
-package software.aoc.day01.a.model;
+package software.aoc.day01.common.model;
 
 public record Rotation(Direction direction, int value) {
     public enum Direction {

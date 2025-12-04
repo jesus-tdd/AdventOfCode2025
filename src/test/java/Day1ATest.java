@@ -1,11 +1,11 @@
 import org.junit.Test;
-import software.aoc.day01.a.model.Dial;
-import software.aoc.day01.a.model.Rotation;
+import software.aoc.day01.common.model.Dial;
+import software.aoc.day01.common.model.Rotation;
 
 import static org.assertj.core.api.Assertions.*;
 
-import static software.aoc.day01.a.model.Rotation.Direction.L;
-import static software.aoc.day01.a.model.Rotation.Direction.R;
+import static software.aoc.day01.common.model.Rotation.Direction.L;
+import static software.aoc.day01.common.model.Rotation.Direction.R;
 
 public class Day1ATest {
     @Test

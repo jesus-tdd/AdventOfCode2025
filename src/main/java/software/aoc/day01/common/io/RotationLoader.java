@@ -1,6 +1,6 @@
-package software.aoc.day01.a.io;
+package software.aoc.day01.common.io;
 
-import software.aoc.day01.a.model.Rotation;
+import software.aoc.day01.common.model.Rotation;
 
 import java.util.List;
 

@@ -1,8 +1,7 @@
-package software.aoc.day01.a.app.io;
+package software.aoc.day01.common.io;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import software.aoc.day01.a.io.RotationLoader;
-import software.aoc.day01.a.model.Rotation;
+import software.aoc.day01.common.model.Rotation;
 
 import java.io.*;
 import java.net.URL;

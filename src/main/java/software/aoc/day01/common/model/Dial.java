@@ -1,6 +1,6 @@
-package software.aoc.day01.a.model;
+package software.aoc.day01.common.model;
 
-import static software.aoc.day01.a.model.Rotation.Direction.L;
+import static software.aoc.day01.common.model.Rotation.Direction.L;
 
 public class Dial {
     private final int from;
