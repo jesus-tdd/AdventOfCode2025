@@ -3,11 +3,15 @@ package software.aoc.day01.a.model;
 import static software.aoc.day01.a.model.Rotation.Direction.L;
 
 public class Dial {
+    private final int from;
+    private final int to;
     private final int pointingAt;
 
 
-    public Dial(int value) {
-        this.pointingAt = value;
+    public Dial(int from, int to, int pointingAt) {
+        this.from = from;
+        this.to = to;
+        this.pointingAt = pointingAt;
     }
 
     public int pointingAt() {
@@ -19,11 +23,15 @@ public class Dial {
     }
 
     private Dial rotateLeft(int value) {
-        return new Dial((100 + this.pointingAt() - value) % 100);
+        return new Dial(0, 99, (this.size() + this.pointingAt() - value) % this.size());
     }
 
     private Dial rotateRight(int value) {
-        return new Dial((this.pointingAt() + value) % 100);
+        return new Dial(0, 99, (this.pointingAt() + value) % this.size());
+    }
+
+    private int size() {
+        return this.to - this.from  + 1;
     }
 
 }
