@@ -14,6 +14,8 @@ public class Day1ATest {
         assertThat(dial.rotate(new Rotation(L, 1)).value()).isEqualTo(49);
         assertThat(dial.rotate(new Rotation(L, 50)).value()).isEqualTo(0);
         assertThat(dial.rotate(new Rotation(L, 51)).value()).isEqualTo(99);
+        assertThat(dial.rotate(new Rotation(L, 100)).value()).isEqualTo(50);
+        assertThat(dial.rotate(new Rotation(L, 101)).value()).isEqualTo(49);
     }
 
     @Test
@@ -22,5 +24,7 @@ public class Day1ATest {
         assertThat(dial.rotate(new Rotation(R, 1)).value()).isEqualTo(51);
         assertThat(dial.rotate(new Rotation(R, 50)).value()).isEqualTo(0);
         assertThat(dial.rotate(new Rotation(R, 51)).value()).isEqualTo(1);
+        assertThat(dial.rotate(new Rotation(R, 100)).value()).isEqualTo(50);
+        assertThat(dial.rotate(new Rotation(R, 101)).value()).isEqualTo(51);
     }
 }
