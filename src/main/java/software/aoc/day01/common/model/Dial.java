@@ -26,7 +26,7 @@ public class Dial {
     }
 
     private Dial rotateLeft(int value) {
-        return new Dial(0, 99, (this.size() + this.value() - value) % this.size());
+        return new Dial(0, 99, (this.size() + this.value() - value % this.size()) % this.size());
     }
 
     private Dial rotateRight(int value) {
@@ -37,4 +37,25 @@ public class Dial {
         return this.to - this.from  + 1;
     }
 
+    public int predictPassesThroughStartWith(Rotation rotation) {
+        int zeros = rotation.value() / this.size();
+        Rotation rotationRemainder = new Rotation(rotation.direction(), rotation.value()%this.size());
+
+        if (rotationRemainder.value() == 0) return zeros;
+
+        if (rotationRemainder.direction() == L) {
+            zeros += predictPassesThroughStartLeftwards(rotationRemainder);
+        } else {
+            zeros += predictPassesThroughStartRightwards(rotationRemainder);
+        }
+        return zeros;
+    }
+
+    private int predictPassesThroughStartRightwards(Rotation r) {
+        return this.value + r.value() > this.to ? 1 : 0;
+    }
+
+    private int predictPassesThroughStartLeftwards(Rotation r) {
+        return this.value > this.from && this.value - r.value() <= this.from ? 1 : 0;
+    }
 }
