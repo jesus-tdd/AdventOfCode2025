@@ -14,8 +14,8 @@ public class Main {
         Dial dial = new Dial(0, 99, 50);
         int count = 0;
         for (Rotation rotation : rotations) {
+            count += dial.predictPassesThroughStartWith(rotation);
             dial = dial.rotate(rotation);
-            if (dial.isPointingAt(0)) count++;
         }
         System.out.println("Password: " + count);
     }
