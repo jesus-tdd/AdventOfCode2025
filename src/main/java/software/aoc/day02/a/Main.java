@@ -10,9 +10,7 @@ public class Main {
         List<Range> ranges = new RemoteRangeLoader(Main::toRange).loadAll();
         long total = 0;
         for (Range range : ranges) {
-            total += range.getRangeStream()
-                    .filter(id -> (id + "").matches("^(\\d+)\\1+$"))
-                    .reduce(0L, Long::sum);
+            total += range.findInvalidIds();
         }
         System.out.println("Sum of invalid IDs: " + total);
     }
