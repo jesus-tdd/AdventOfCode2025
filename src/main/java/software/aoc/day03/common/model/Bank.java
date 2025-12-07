@@ -31,4 +31,21 @@ public class Bank {
 
         return firstBattery.power()*10 + secondBattery.power();
     }
+
+    public long getMaxJolts(int nDigits) {
+        List<Battery> digits = new ArrayList<>();
+        int nextIndex = 0;
+        for (int i = 0; i < nDigits; i++) {
+            List<Battery> sublist = list.subList(nextIndex, getSublistLimit(nDigits, i));
+            Battery battery = sublist.stream().max(Battery::compare).orElseThrow();
+            nextIndex += sublist.indexOf(battery) + 1;
+            digits.add(battery);
+        }
+
+        return digits.stream().map(b -> (long) b.power()).reduce(0L, (p1, p2) -> p1 * 10 + p2);
+    }
+
+    private int getSublistLimit(int nDigits, int index) {
+        return list.size() - nDigits + index + 1;
+    }
 }
