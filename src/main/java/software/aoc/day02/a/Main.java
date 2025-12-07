@@ -1,6 +1,6 @@
 package software.aoc.day02.a;
 
-import software.aoc.day02.a.io.RemoteRangeLoader;
+import software.aoc.day02.common.io.RemoteRangeLoader;
 import software.aoc.day02.a.model.Range;
 
 import java.util.List;

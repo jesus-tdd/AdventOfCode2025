@@ -1,4 +1,4 @@
-package software.aoc.day02.a.io;
+package software.aoc.day02.common.io;
 
 import software.aoc.day02.a.model.Range;
 
