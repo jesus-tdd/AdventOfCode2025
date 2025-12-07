@@ -1,6 +1,6 @@
 package software.aoc.day02.common.stores;
 
-import software.aoc.day02.a.model.Range;
+import software.aoc.day02.common.model.Range;
 
 import java.util.ArrayList;
 import java.util.List;

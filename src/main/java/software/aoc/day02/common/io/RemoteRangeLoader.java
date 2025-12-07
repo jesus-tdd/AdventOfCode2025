@@ -1,7 +1,7 @@
 package software.aoc.day02.common.io;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import software.aoc.day02.a.model.Range;
+import software.aoc.day02.common.model.Range;
 
 import java.io.IOException;
 import java.io.InputStream;

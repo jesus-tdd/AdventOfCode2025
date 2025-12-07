@@ -1,4 +1,4 @@
-package software.aoc.day02.a.model;
+package software.aoc.day02.common.model;
 
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
