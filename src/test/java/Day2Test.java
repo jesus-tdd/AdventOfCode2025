@@ -4,7 +4,7 @@ import software.aoc.day02.common.stores.RangeStore;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class Day2ATest {
+public class Day2Test {
     @Test
     public void no_elements_store() {
         RangeStore store = new RangeStore();
