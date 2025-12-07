@@ -25,6 +25,4 @@ public class Main {
     private static List<Range> getRanges() {
         return new RemoteInputLoader<>(2, RangeParser::parse).loadAll();
     }
-
-
 }
