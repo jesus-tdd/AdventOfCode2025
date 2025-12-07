@@ -10,6 +10,6 @@ public class Main {
     static void main() {
         List<Bank> list = new RemoteInputLoader<>(3, BankParser::parse).loadAll();
         int total = list.stream().map(Bank::getMaxJolts).reduce(0, Integer::sum);
-        System.out.println("Total jolts:" + total);
+        System.out.println("Total jolts: " + total);
     }
 }
