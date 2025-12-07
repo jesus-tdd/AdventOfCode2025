@@ -15,7 +15,7 @@ public class Day3ATest {
     }
 
     @Test
-    public void max_jolts_in_() {
+    public void max_jolts_in_list() {
         Bank bank = new Bank();
         int[] powers = {8,1,8,1,8,1,9,1,1,1,1,2,1,1,1};
         for (int power : powers) {
