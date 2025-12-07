@@ -1,39 +1,42 @@
 import org.junit.Test;
 import software.aoc.day02.common.model.Range;
-
-import java.util.List;
+import software.aoc.day02.common.stores.RangeStore;
 
 import static org.assertj.core.api.Assertions.*;
 
 public class Day2ATest {
     @Test
-    public void return_range_stream() {
-        Range range = new Range(0, 5);
-        assertThat(range.getRangeStream().count()).isEqualTo(6);
-        assertThat(range.getRangeStream().toList()).isEqualTo(List.of(0L, 1L, 2L, 3L, 4L, 5L));
+    public void no_elements_store() {
+        RangeStore store = new RangeStore();
+        assertThat(store.stream().count()).isEqualTo(0);
+        assertThat(store.expandedStream().count()).isEqualTo(0);
     }
 
     @Test
-    public void find_no_invalid_ids() {
-        Range range = new Range(0, 9);
-        assertThat(range.findInvalidIds()).isEqualTo(0);
+    public void one_element_store() {
+        RangeStore store = new RangeStore();
+        store.put(new Range(0, 5));
+        assertThat(store.stream().count()).isEqualTo(1);
+        assertThat(store.expandedStream().count()).isEqualTo(6);
     }
 
     @Test
-    public void find_one_invalid_id() {
-        Range range = new Range(21, 32);
-        assertThat(range.findInvalidIds()).isEqualTo(22);
+    public void more_elements_store() {
+        RangeStore store = new RangeStore();
+        store.put(new Range(0, 5));
+        store.put(new Range(6, 10));
+        assertThat(store.stream().count()).isEqualTo(2);
+        assertThat(store.expandedStream().count()).isEqualTo(11);
     }
 
     @Test
-    public void find_two_invalid_ids() {
-        Range range = new Range(21, 34);
-        assertThat(range.findInvalidIds()).isEqualTo(55);
+    public void disperse_ranges_store() {
+        RangeStore store = new RangeStore();
+        store.put(new Range(0, 5));
+        store.put(new Range(15,17));
+        store.put(new Range(30,39));
+        assertThat(store.stream().count()).isEqualTo(3);
+        assertThat(store.expandedStream().count()).isEqualTo(19);
     }
 
-    @Test
-    public void find_many_invalid_ids() {
-        Range range = new Range(1000, 1500);
-        assertThat(range.findInvalidIds()).isEqualTo(1010+1111+1212+1313+1414);
-    }
 }
