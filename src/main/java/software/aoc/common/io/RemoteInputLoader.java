@@ -1,7 +1,6 @@
 package software.aoc.common.io;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import software.aoc.day01.common.model.Rotation;
 
 import java.io.BufferedReader;
 import java.io.IOException;
