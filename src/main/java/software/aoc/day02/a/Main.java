@@ -1,7 +1,7 @@
 package software.aoc.day02.a;
 
+import software.aoc.common.io.RemoteInputLoader;
 import software.aoc.day02.common.io.RangeParser;
-import software.aoc.day02.common.io.RemoteRangeLoader;
 import software.aoc.day02.common.model.Range;
 import software.aoc.day02.common.stores.RangeStore;
 
@@ -23,6 +23,6 @@ public class Main {
     }
 
     private static List<Range> getRanges() {
-        return new RemoteRangeLoader(RangeParser::parse).loadAll();
+        return new RemoteInputLoader<>(2, RangeParser::parse).loadAll();
     }
 }
