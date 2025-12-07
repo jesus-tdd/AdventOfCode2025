@@ -44,11 +44,9 @@ public class Dial {
         if (rotationRemainder.value() == 0) return zeros;
 
         if (rotationRemainder.direction() == L) {
-            zeros += predictPassesThroughStartLeftwards(rotationRemainder);
-        } else {
-            zeros += predictPassesThroughStartRightwards(rotationRemainder);
+            return zeros + predictPassesThroughStartLeftwards(rotationRemainder);
         }
-        return zeros;
+        return zeros + predictPassesThroughStartRightwards(rotationRemainder);
     }
 
     private int predictPassesThroughStartRightwards(Rotation r) {
