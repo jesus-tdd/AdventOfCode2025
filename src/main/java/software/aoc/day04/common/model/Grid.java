@@ -3,6 +3,7 @@ package software.aoc.day04.common.model;
 import java.util.*;
 import java.util.stream.Stream;
 
+import static software.aoc.day04.common.model.Cell.Status.Empty;
 import static software.aoc.day04.common.model.Cell.Status.Roll;
 
 public class Grid {
@@ -44,6 +45,10 @@ public class Grid {
             }
         }
         return (int) list.stream().filter(c -> c.status() == Roll).count();
+    }
+
+    public void removeRollFrom(int x, int y) {
+        this.set(x, y, new Cell(Empty));
     }
 
     private boolean exists(int x, int y) {
