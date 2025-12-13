@@ -26,12 +26,12 @@ public class Grid {
     }
 
     public Cell get(int x, int y) {
-        if (x < 0 || y < 0 || x >= rows || y >= rows) throw new IndexOutOfBoundsException("");
+        if (x < 0 || y < 0 || x >= rows || y >= columns) throw new IndexOutOfBoundsException("");
         return this.values.get(new Coordinate(x, y));
     }
 
     public void set(int x, int y, Cell cell) {
-        if (x < 0 || y < 0 || x >= rows || y >= rows) throw new IndexOutOfBoundsException();
+        if (x < 0 || y < 0 || x >= rows || y >= columns) throw new IndexOutOfBoundsException();
         values.put(new Coordinate(x, y), cell);
     }
 
@@ -56,7 +56,7 @@ public class Grid {
             && y >= 0
             && x < rows
             && y < columns
-            && this.get(x, y) != null;
+            && values.containsKey(new Coordinate(x, y));
     }
 
     public Stream<Coordinate> stream() {
