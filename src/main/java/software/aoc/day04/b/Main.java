@@ -20,8 +20,6 @@ public class Main {
                     .filter(c -> grid.countRollsAdjacentTo(c.x(), c.y()) < 4)
                     .toList()
                     .forEach(c -> grid.removeRollFrom(c.x(), c.y()));
-
-            System.out.println(getAccessibleRolls(grid));
         }
 
         System.out.println(total);
