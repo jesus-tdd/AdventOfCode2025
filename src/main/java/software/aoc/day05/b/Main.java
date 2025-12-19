@@ -12,7 +12,7 @@ public class Main {
         RangeStore store = new RangeStore();
         store.put(getRanges());
 
-        long freshIds = store.totalNumbers();
+        long freshIds = store.expandedSize();
         System.out.println("Number of fresh ingredient ids: " + freshIds);
     }
 

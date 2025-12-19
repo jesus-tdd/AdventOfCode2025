@@ -23,16 +23,16 @@ public class RangeStore {
         ));
     }
 
+    public void put(List<Range> ranges) {
+        ranges.forEach(this::put);
+    }
+
     public void remove(Range range) {
         ranges.remove(range);
     }
 
     public void remove(List<Range> ranges) {
         ranges.forEach(this::remove);
-    }
-
-    public void put(List<Range> ranges) {
-        ranges.forEach(this::put);
     }
 
     public boolean contains(long n) {
@@ -50,7 +50,7 @@ public class RangeStore {
         return ranges.size();
     }
 
-    public long totalNumbers() {
+    public long expandedSize() {
         return ranges.stream().map(Range::size).reduce(0L, Long::sum);
     }
 }
