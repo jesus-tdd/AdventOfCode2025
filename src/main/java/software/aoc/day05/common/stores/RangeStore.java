@@ -36,10 +36,7 @@ public class RangeStore {
     }
 
     public boolean contains(long n) {
-        for (Range range : ranges) {
-            if (range.contains(n)) return true;
-        }
-        return false;
+        return this.ranges.stream().anyMatch(r -> r.contains(n));
     }
 
     public Stream<Range> getIntersectingRanges(Range range) {
