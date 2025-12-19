@@ -6,13 +6,12 @@ import software.aoc.day03.common.model.Battery;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class BankParser {
-    public static Stream<Bank> parse(String s) {
+    public static Bank parse(String s) {
         Bank bank = new Bank();
         bank.put(toBatteries(s));
-        return Stream.of(bank);
+        return bank;
     }
 
     private static List<Battery> toBatteries(String s) {

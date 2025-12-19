@@ -1,6 +1,8 @@
-package software.aoc.common.io;
+package software.aoc.day03.common.io;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import software.aoc.common.io.InputLoader;
+import software.aoc.day03.common.model.Bank;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,27 +13,24 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
-public class RemoteInputLoader<T> implements InputLoader<T> {
-    private final int day;
-    private final Function<String, Stream<T>> deserialize;
+public class BankLoader implements InputLoader<Bank> {
+    private final Function<String, Bank> deserialize;
 
-    public RemoteInputLoader(int day, Function<String, Stream<T>> deserialize) {
-        this.day = day;
+    public BankLoader(Function<String, Bank> deserialize) {
         this.deserialize = deserialize;
     }
 
     @Override
-    public List<T> loadAll() {
+    public List<Bank> loadAll() {
         try {
-            return loadFrom(new URL("https://adventofcode.com/2025/day/" + day + "/input"));
+            return loadFrom(new URL("https://adventofcode.com/2025/day/3/input"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private List<T> loadFrom(URL url) throws IOException {
+    private List<Bank> loadFrom(URL url) throws IOException {
         try (InputStream is = getOpenConnection(url).getInputStream()) {
             return loadFrom(toReader(is));
         }
@@ -44,12 +43,12 @@ public class RemoteInputLoader<T> implements InputLoader<T> {
         return c;
     }
 
-    private List<T> loadFrom(BufferedReader reader) throws IOException {
-        List<T> list = new ArrayList<>();
+    private List<Bank> loadFrom(BufferedReader reader) throws IOException {
+        List<Bank> list = new ArrayList<>();
         while (true) {
             String line = reader.readLine();
             if (line == null) break;
-            deserialize.apply(line).forEach(list::add);
+            list.add(deserialize.apply(line));
         }
         return list;
     }

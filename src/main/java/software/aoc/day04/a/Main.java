@@ -1,7 +1,7 @@
 package software.aoc.day04.a;
 
-import software.aoc.common.io.RemoteInputLoader;
-import software.aoc.day04.common.io.GridParser;
+import software.aoc.day04.common.io.CellListLoader;
+import software.aoc.day04.common.io.CellListParser;
 import software.aoc.day04.common.model.Cell;
 import software.aoc.day04.common.model.Grid;
 
@@ -21,7 +21,7 @@ public class Main {
     }
 
     private static Grid getGrid() {
-        List<List<Cell>> rows = new RemoteInputLoader<>(4, GridParser::parse).loadAll();
+        List<List<Cell>> rows = new CellListLoader(CellListParser::parse).loadAll();
         Grid grid = new Grid(rows.getFirst().size(), rows.size());
         for (int i = 0; i < grid.rows(); i++) {
             for (int j = 0; j < grid.columns(); j++) {
