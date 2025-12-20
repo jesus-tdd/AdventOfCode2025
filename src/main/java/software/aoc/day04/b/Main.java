@@ -4,6 +4,7 @@ import software.aoc.day04.common.io.CellListLoader;
 import software.aoc.day04.common.io.CellListParser;
 import software.aoc.day04.common.model.Cell;
 import software.aoc.day04.common.model.Grid;
+import software.aoc.day04.common.model.GridBuilder;
 
 import java.util.List;
 
@@ -33,15 +34,12 @@ public class Main {
                 .count();
     }
 
-
     private static Grid getGrid() {
-        List<List<Cell>> rows = new CellListLoader(CellListParser::parse).loadAll();
-        Grid grid = new Grid(rows.getFirst().size(), rows.size());
-        for (int i = 0; i < grid.rows(); i++) {
-            for (int j = 0; j < grid.columns(); j++) {
-                grid.set(i, j, rows.get(j).get(i));
-            }
-        }
-        return grid;
+        List<List<Cell>> cellLists = new CellListLoader(CellListParser::parse).loadAll();
+        return new GridBuilder()
+                .rows(cellLists.getFirst().size())
+                .columns(cellLists.size())
+                .cells(cellLists)
+                .build();
     }
 }
