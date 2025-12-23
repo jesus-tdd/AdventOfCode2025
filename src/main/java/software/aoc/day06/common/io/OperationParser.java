@@ -9,7 +9,7 @@ import java.util.List;
 
 public class OperationParser {
     public static Operation parse(String[] column) {
-        if (column[column.length - 1].equals("+")) {
+        if (column[column.length - 1].charAt(0) == '+') {
             return new Sum(getNumbers(column));
         }
         else {
@@ -20,6 +20,8 @@ public class OperationParser {
     private static List<Long> getNumbers(String[] column) {
         return Arrays.stream(column)
                 .limit(column.length - 1)
+                .map(s -> s.replaceAll(" ",""))
+                .filter(s -> !s.isEmpty())
                 .map(Long::parseLong)
                 .toList();
     }
