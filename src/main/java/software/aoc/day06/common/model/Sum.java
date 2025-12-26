@@ -13,4 +13,15 @@ public class Sum implements Operation {
     public long apply() {
         return numbers.stream().reduce(0L, Long::sum);
     }
+
+    @Override
+    public boolean equals(Operation operation) {
+        if (! (operation instanceof Sum)) return false;
+        Sum sum = (Sum) operation;
+        if (this.numbers.size() != sum.numbers.size()) return false;
+        for (int i = 0; i < this.numbers.size(); i++) {
+            if (!this.numbers.get(i).equals(sum.numbers.get(i))) return false;
+        }
+        return true;
+    }
 }
