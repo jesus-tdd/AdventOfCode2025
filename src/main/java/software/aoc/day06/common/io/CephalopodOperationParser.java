@@ -30,7 +30,7 @@ public class CephalopodOperationParser {
 
     private static Long getNumberAt(String[] column, int i) {
         return getNumberAt(Arrays.stream(column)
-                .filter(s -> s.matches("\\s*[1-9]+\\s*"))
+                .filter(s -> s.matches("\\s*[0-9]+\\s*"))
                 .map(s -> s.charAt(i))
                 .map(String::valueOf)
                 .collect(joining())
