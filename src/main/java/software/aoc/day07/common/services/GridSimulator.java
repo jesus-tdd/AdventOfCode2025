@@ -5,24 +5,12 @@ import software.aoc.day07.common.model.Grid;
 
 import static software.aoc.day07.common.model.Cell.State.*;
 
-public class GridSimulator {
+public class GridSimulator implements Simulator {
     private final Grid grid;
 
     public GridSimulator(Grid grid) {
         this.grid = grid;
     }
-
-    public Grid step() {
-        for (int i = 0; i < grid.rows(); i++) {
-            for (int j = 0; j < grid.columns(); j++) {
-                startTachyonBeamIfMust(i, j);
-                extendTachyonBeamIfMust(i, j);
-                splitTachyonBeamIfMust(i, j);
-            }
-        }
-        return grid;
-    }
-
 
     private void startTachyonBeamIfMust(int i, int j) {
         if (grid.get(i, j).state() != Start) return;
@@ -46,6 +34,19 @@ public class GridSimulator {
         grid.setIfInBounds(i, j +1, Cell.TachyonBeam());
     }
 
+    @Override
+    public Grid step() {
+        for (int i = 0; i < grid.rows(); i++) {
+            for (int j = 0; j < grid.columns(); j++) {
+                startTachyonBeamIfMust(i, j);
+                extendTachyonBeamIfMust(i, j);
+                splitTachyonBeamIfMust(i, j);
+            }
+        }
+        return grid;
+    }
+
+    @Override
     public Grid simulate() {
         for (int i = 0; i < grid.rows(); i++) {
             this.step();
