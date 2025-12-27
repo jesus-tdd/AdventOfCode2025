@@ -5,7 +5,7 @@ import software.aoc.day07.common.model.Grid;
 
 import static software.aoc.day07.common.model.Cell.State.*;
 
-public class GridSimulator implements Simulator {
+public class GridSimulator implements Simulator<Grid> {
     private final Grid grid;
 
     public GridSimulator(Grid grid) {
