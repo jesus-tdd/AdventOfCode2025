@@ -50,5 +50,13 @@ public class Grid {
                 .count();
     }
 
+    public Grid copy() {
+        Grid newGrid = new Grid(rows, columns);
+        for (Coordinate coordinate : this.grid.keySet()) {
+            newGrid.grid.put(coordinate, this.grid.get(coordinate));
+        }
+        return newGrid;
+    }
+
     private record Coordinate (int x, int y) { }
  }
