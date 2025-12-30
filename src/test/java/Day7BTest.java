@@ -18,35 +18,20 @@ public class Day7BTest {
                 ".S.",
                 "..."
         );
-        assertThat(new QuantumGridSimulator(grid).step().size()).isEqualTo(1);
-    }
-    @Test
-    public void continue_tachyon_beam() {
-        Grid grid = TestGridBuilder.from(
-                ".|.",
-                "..."
-        );
-        assertThat(new QuantumGridSimulator(grid).step().size()).isEqualTo(1);
-    }
-
-    @Test
-    public void split_nothing() {
-        Grid grid = TestGridBuilder.from(
-                "...",
-                ".^.",
-                "..."
-        );
-        assertThat(new QuantumGridSimulator(grid).step().size()).isEqualTo(1);
+        assertThat(new QuantumGridSimulator(grid).step().countTimelines()).isEqualTo(1);
+        assertThat(new QuantumGridSimulator(grid).simulate().countTimelines()).isEqualTo(1);
     }
 
     @Test
     public void split_tachyon_beam() {
         Grid grid = TestGridBuilder.from(
-                ".|.",
+                ".S.",
+                "...",
                 ".^.",
                 "..."
         );
-        assertThat(new QuantumGridSimulator(grid).step().size()).isEqualTo(2);
+        assertThat(new QuantumGridSimulator(grid).step().countTimelines()).isEqualTo(1);
+        assertThat(new QuantumGridSimulator(grid).simulate().countTimelines()).isEqualTo(2);
     }
 
     private static class TestGridBuilder {
