@@ -7,7 +7,7 @@ import static software.aoc.day07.common.model.Cell.State.Splitter;
 import static software.aoc.day07.common.model.Cell.State.TachyonBeam;
 
 public class Grid {
-    private final Map<Coordinate, Cell> grid;
+    private final Map<Position, Cell> grid;
     private final int rows;
     private final int columns;
 
@@ -27,27 +27,33 @@ public class Grid {
 
     public void set(int row, int column, Cell cell) {
         if (isNotInBounds(row, column)) throw new IndexOutOfBoundsException();
-        grid.put(new Coordinate(row, column), cell);
+        grid.put(new Position(row, column), cell);
     }
 
     public Cell get(int row, int column) {
         if (isNotInBounds(row, column)) throw new IndexOutOfBoundsException();
-        return grid.get(new Coordinate(row, column));
+        return grid.get(new Position(row, column));
     }
 
     public void setIfInBounds(int row, int column, Cell cell) {
         if (isNotInBounds(row, column)) return;
-        grid.put(new Coordinate(row, column), cell);
+        grid.put(new Position(row, column), cell);
     }
 
     public boolean isNotInBounds(int row, int column) {
         return row < 0 || row >= rows || column < 0 || column >= columns;
     }
 
-    public long getActiveSplitters() {
-        return grid.keySet().stream()
-                .filter(c -> grid.get(c).state() == Splitter && this.get(c.x-1, c.y).state() == TachyonBeam)
-                .count();
+    public int getActiveSplitters() {
+        return Math.toIntExact(
+                grid.keySet().stream()
+                .filter(p -> grid.get(p).state() == Splitter && this.get(p.row - 1, p.column).state() == TachyonBeam)
+                .count()
+        );
+    }
+
+    public Position getStartingPosition() {
+        return this.grid.keySet().stream().filter(p -> grid.get(p).state() == Start).toList().getFirst();
     }
 
     public Grid copy() {
@@ -58,5 +64,5 @@ public class Grid {
         return newGrid;
     }
 
-    private record Coordinate (int x, int y) { }
- }
+    public record Position(int row, int column) { }
+}
