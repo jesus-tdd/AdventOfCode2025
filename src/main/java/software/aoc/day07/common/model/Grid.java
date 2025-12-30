@@ -1,10 +1,10 @@
 package software.aoc.day07.common.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import static software.aoc.day07.common.model.Cell.State.Splitter;
-import static software.aoc.day07.common.model.Cell.State.TachyonBeam;
+import static software.aoc.day07.common.model.Cell.State.*;
 
 public class Grid {
     private final Map<Position, Cell> grid;
@@ -60,12 +60,26 @@ public class Grid {
         return this.grid.keySet().stream().filter(p -> grid.get(p).state() == Start).toList().getFirst();
     }
 
-    public Grid copy() {
-        Grid newGrid = new Grid(rows, columns);
-        for (Coordinate coordinate : this.grid.keySet()) {
-            newGrid.grid.put(coordinate, this.grid.get(coordinate));
+    public boolean rowContains(int rowIndex, Cell.State state) {
+        List<Position> row = grid.keySet().stream().filter(p -> p.row == rowIndex).toList();
+        for (Position position : row) {
+            if (grid.get(position).state() == state) return true;
         }
-        return newGrid;
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                builder.append(this.get(i, j));
+            }
+            builder.append("\n");
+        }
+        builder.append("\n");
+
+        return builder.toString();
     }
 
     public record Position(int row, int column) { }
