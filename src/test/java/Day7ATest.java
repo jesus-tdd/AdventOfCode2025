@@ -20,7 +20,7 @@ public class Day7ATest {
                 ".S.",
                 "..."
         );
-        assertThat(new GridSimulator(grid).step().get(1, 1).state()).isEqualTo(TachyonBeam);
+        assertThat(new GridSimulator(grid).step().grid().get(1, 1).state()).isEqualTo(TachyonBeam);
     }
     @Test
     public void continue_tachyon_beam() {
@@ -28,7 +28,7 @@ public class Day7ATest {
                 ".|.",
                 "..."
         );
-        assertThat(new GridSimulator(grid).step().get(1, 1).state()).isEqualTo(TachyonBeam);
+        assertThat(new GridSimulator(grid).step().grid().get(1, 1).state()).isEqualTo(TachyonBeam);
     }
 
     @Test
@@ -38,9 +38,9 @@ public class Day7ATest {
                 ".^.",
                 "..."
         );
-        assertThat(new GridSimulator(grid).step().get(1, 0).state()).isEqualTo(Empty);
-        assertThat(new GridSimulator(grid).step().get(1, 2).state()).isEqualTo(Empty);
-        assertThat(new GridSimulator(grid).step().getActiveSplitters()).isEqualTo(0);
+        assertThat(new GridSimulator(grid).step().grid().get(1, 0).state()).isEqualTo(Empty);
+        assertThat(new GridSimulator(grid).step().grid().get(1, 2).state()).isEqualTo(Empty);
+        assertThat(new GridSimulator(grid).step().grid().getActiveSplitters()).isEqualTo(0);
     }
 
     @Test
@@ -50,9 +50,11 @@ public class Day7ATest {
                 ".^.",
                 "..."
         );
-        assertThat(new GridSimulator(grid).step().get(1, 0).state()).isEqualTo(TachyonBeam);
-        assertThat(new GridSimulator(grid).step().get(1, 2).state()).isEqualTo(TachyonBeam);
-        assertThat(new GridSimulator(grid).step().getActiveSplitters()).isEqualTo(1);
+        assertThat(new GridSimulator(grid).step().grid().get(1, 0).state()).isEqualTo(TachyonBeam);
+        assertThat(new GridSimulator(grid).step().grid().get(2, 0).state()).isEqualTo(TachyonBeam);
+        assertThat(new GridSimulator(grid).step().grid().get(1, 2).state()).isEqualTo(TachyonBeam);
+        assertThat(new GridSimulator(grid).step().grid().get(2, 2).state()).isEqualTo(TachyonBeam);
+        assertThat(new GridSimulator(grid).step().grid().getActiveSplitters()).isEqualTo(1);
     }
 
     private static class TestGridBuilder {
