@@ -20,10 +20,10 @@ public class Main {
     }
 
     private static List<Range> getRanges() {
-        return new RangeLoader(RangeParser::parse).loadAll();
+        return new RangeLoader(new RangeParser()::parse).loadAll();
     }
 
     private static List<Ingredient> getIngredients() {
-        return new IngredientLoader(IngredientParser::parse).loadAll();
+        return new IngredientLoader(new IngredientParser()::parse).loadAll();
     }
 }

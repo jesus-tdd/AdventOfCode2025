@@ -23,6 +23,6 @@ public class Main {
     }
 
     private static List<Range> getRanges() {
-        return new RangeLoader(RangeParser::parse).loadAll();
+        return new RangeLoader(new RangeParser()::parse).loadAll();
     }
 }

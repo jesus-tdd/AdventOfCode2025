@@ -22,7 +22,7 @@ public class Main {
     }
 
     private static Grid getGrid() {
-        List<List<Cell>> cellLists = new CellListLoader(CellListParser::parse).loadAll();
+        List<List<Cell>> cellLists = new CellListLoader(new CellListParser()::parse).loadAll();
         return new GridBuilder()
                 .rows(cellLists.getFirst().size())
                 .columns(cellLists.size())

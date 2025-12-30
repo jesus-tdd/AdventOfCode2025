@@ -12,12 +12,13 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class OperationLoader implements InputLoader<Operation> {
-    private final Function<String[], Operation> deserialize;
+    private final Function<String, Operation> deserialize;
 
-    public OperationLoader(Function<String[], Operation> deserialize) {
+    public OperationLoader(Function<String, Operation> deserialize) {
         this.deserialize = deserialize;
     }
 
@@ -54,13 +55,14 @@ public class OperationLoader implements InputLoader<Operation> {
         return getColumns(lines).stream().map(deserialize).toList();
     }
 
-    private static List<String[]> getColumns(List<String> lines) {
+    private static List<String> getColumns(List<String> lines) {
         Map<Integer, Integer> columnRanges = getColumnRanges(lines.getLast());
-        ArrayList<String[]> list = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
         for (int pos : columnRanges.keySet()) {
             list.add(lines.stream()
                     .map(s -> s.substring(pos, columnRanges.get(pos)))
-                    .toArray(String[]::new));
+                            .collect(Collectors.joining("\n"))
+            );
         }
         return list;
     }

@@ -1,5 +1,6 @@
 package software.aoc.day06.common.io;
 
+import software.aoc.common.io.InputParser;
 import software.aoc.day06.common.model.Operation;
 import software.aoc.day06.common.model.Product;
 import software.aoc.day06.common.model.Sum;
@@ -10,8 +11,13 @@ import java.util.List;
 
 import static java.util.stream.Collectors.joining;
 
-public class CephalopodOperationParser {
-    public static Operation parse(String[] column) {
+public class CephalopodOperationParser implements InputParser<Operation> {
+    @Override
+    public Operation parse(String s) {
+        return parse(s.split("\n"));
+    }
+
+    public Operation parse(String[] column) {
         if (column[column.length - 1].charAt(0) == '+') {
             return new Sum(getNumbers(column));
         }
@@ -20,7 +26,7 @@ public class CephalopodOperationParser {
         }
     }
 
-    private static List<Long> getNumbers(String[] column) {
+    private List<Long> getNumbers(String[] column) {
         List<Long> list = new ArrayList<>();
         for (int i = column[0].length()-1; i >= 0; i--) {
             list.add(getNumberAt(column, i));
@@ -28,7 +34,7 @@ public class CephalopodOperationParser {
         return list;
     }
 
-    private static Long getNumberAt(String[] column, int i) {
+    private Long getNumberAt(String[] column, int i) {
         return getNumberAt(Arrays.stream(column)
                 .filter(s -> s.matches("\\s*[0-9]+\\s*"))
                 .map(s -> s.charAt(i))
@@ -37,7 +43,8 @@ public class CephalopodOperationParser {
         );
     }
 
-    private static Long getNumberAt(String number) {
+    private Long getNumberAt(String number) {
         return Long.parseLong(number.replaceAll(" ", ""));
     }
+
 }

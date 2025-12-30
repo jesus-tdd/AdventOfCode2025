@@ -10,7 +10,7 @@ import java.util.List;
 public class Main {
 
     static void main() {
-        List<Rotation> rotations = new RotationLoader(RotationParser::parse).loadAll();
+        List<Rotation> rotations = new RotationLoader(new RotationParser()::parse).loadAll();
         Dial dial = new Dial(0, 99, 50);
         int count = 0;
         for (Rotation rotation : rotations) {

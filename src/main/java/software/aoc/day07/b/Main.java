@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Main {
     static void main() {
-        List<List<Cell>> cells = new CellListLoader(CellListParser::parse).loadAll();
+        List<List<Cell>> cells = new CellListLoader(new CellListParser()::parse).loadAll();
         long timelines = new QuantumGridSimulator(getGrid(cells)).simulate().countTimelines();
         System.out.println("Total timelines: " + timelines);
     }

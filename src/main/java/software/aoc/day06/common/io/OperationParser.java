@@ -1,5 +1,6 @@
 package software.aoc.day06.common.io;
 
+import software.aoc.common.io.InputParser;
 import software.aoc.day06.common.model.Operation;
 import software.aoc.day06.common.model.Product;
 import software.aoc.day06.common.model.Sum;
@@ -7,8 +8,13 @@ import software.aoc.day06.common.model.Sum;
 import java.util.Arrays;
 import java.util.List;
 
-public class OperationParser {
-    public static Operation parse(String[] column) {
+public class OperationParser implements InputParser<Operation> {
+    @Override
+    public Operation parse(String column) {
+        return parse(column.split("\n"));
+    }
+
+    private Operation parse(String[] column) {
         if (column[column.length - 1].charAt(0) == '+') {
             return new Sum(getNumbers(column));
         }
@@ -17,7 +23,7 @@ public class OperationParser {
         }
     }
 
-    private static List<Long> getNumbers(String[] column) {
+    private List<Long> getNumbers(String[] column) {
         return Arrays.stream(column)
                 .limit(column.length - 1)
                 .map(s -> s.replaceAll(" ",""))

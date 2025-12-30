@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Main {
     static void main() {
-        List<List<Cell>> cells = new CellListLoader(CellListParser::parse).loadAll();
+        List<List<Cell>> cells = new CellListLoader(new CellListParser()::parse).loadAll();
         Grid grid = new GridSimulator(getGrid(cells)).simulate().grid();
         System.out.println("Total splits: " + grid.getActiveSplitters());
     }

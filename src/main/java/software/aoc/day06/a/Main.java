@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Main {
     static void main() {
-        List<Operation> homework = new OperationLoader(OperationParser::parse).loadAll();
+        List<Operation> homework = new OperationLoader(new OperationParser()::parse).loadAll();
         long total = homework.stream().map(Operation::apply).reduce(0L, Long::sum);
         System.out.println("Grand total: " + total);
     }

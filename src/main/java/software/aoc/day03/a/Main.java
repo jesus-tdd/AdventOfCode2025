@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Main {
     static void main() {
-        List<Bank> list = new BankLoader(BankParser::parse).loadAll();
+        List<Bank> list = new BankLoader(new BankParser()::parse).loadAll();
         int total = list.stream().map(Bank::getMaxJolts).reduce(0, Integer::sum);
         System.out.println("Total jolts: " + total);
     }
