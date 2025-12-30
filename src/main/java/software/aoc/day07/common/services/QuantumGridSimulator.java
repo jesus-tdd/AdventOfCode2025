@@ -1,75 +1,89 @@
 package software.aoc.day07.common.services;
 
-import software.aoc.day07.common.model.Cell;
 import software.aoc.day07.common.model.Grid;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static software.aoc.day07.common.model.Cell.State.*;
 import static software.aoc.day07.common.model.Cell.State.Splitter;
-import static software.aoc.day07.common.model.Cell.State.TachyonBeam;
 
-public class QuantumGridSimulator implements Simulator<List<Grid>> {
-    private final List<Grid> timelines;
+public class QuantumGridSimulator implements Simulator{
+    private final Grid grid;
+    private final Map<BeamState, Long> beamStates;
 
     public QuantumGridSimulator(Grid grid) {
-        timelines = new ArrayList<>();
-        timelines.add(grid);
+        this.grid = grid;
+        this.beamStates = new HashMap<>();
+        beamStates.put(getFirstBeamState(grid), 1L);
     }
 
-    private void startTachyonBeamIfMust(Grid grid, int i, int j) {
-        if (grid.get(i, j).state() != Start) return;
-
-        grid.setIfInBounds(i+1, j, Cell.TachyonBeam());
-    }
-
-    private void extendTachyonBeamIfMust(Grid grid, int i, int j) {
-        if (grid.get(i, j).state() != TachyonBeam) return;
-        if (grid.isNotInBounds(i +1, j)) return;
-        if (grid.get(i +1, j).state() == Splitter) return;
-
-        grid.setIfInBounds(i +1, j, Cell.TachyonBeam());
-    }
-
-    private Grid splitTachyonBeamIfMust(Grid grid, int i, int j) {
-        if (grid.get(i, j).state() != Splitter) return null;
-        if (grid.get(i -1, j).state() != TachyonBeam) return null;
-
-        Grid newGrid = grid.copy();
-        grid.setIfInBounds(i, j -1, Cell.TachyonBeam());
-        newGrid.setIfInBounds(i, j +1, Cell.TachyonBeam());
-        return newGrid;
+    private static BeamState getFirstBeamState(Grid grid) {
+        return new BeamState(
+                grid.getStartingPosition().row(),
+                grid.getStartingPosition().column()
+        );
     }
 
     @Override
-    public List<Grid> step() {
-        List<Grid> newTimelines = new ArrayList<>();
-        for (Grid timeline : timelines) {
-            newTimelines = stepTimeline(timeline);
-        }
-        timelines.addAll(newTimelines);
-        return timelines;
-    }
-
-    private List<Grid> stepTimeline(Grid timeline) {
-        List<Grid> newTimelines = new ArrayList<>();
-        for (int i = 0; i < timeline.rows(); i++) {
-            for (int j = 0; j < timeline.columns(); j++) {
-                startTachyonBeamIfMust(timeline, i, j);
-                extendTachyonBeamIfMust(timeline, i, j);
-                Grid newTimeline = splitTachyonBeamIfMust(timeline, i, j);
-                if (newTimeline != null) newTimelines.add(newTimeline);
+    public QuantumGridSimulator step() {
+        Map<BeamState, Long> nextBeamStates = new HashMap<>();
+        for (BeamState state : beamStates.keySet()) {
+            for (BeamState nextState : getNextBeamState(state)) {
+                nextBeamStates.merge(nextState, beamStates.get(state), Long::sum);
             }
         }
-        return newTimelines;
+        updateBeamStates(nextBeamStates);
+        return this;
+    }
+
+    private List<BeamState> getNextBeamState(BeamState state) {
+        if (state.row + 1 == grid.rows()) return List.of(state);
+
+        return grid.get(state.row, state.column).state() == Splitter
+                ? List.of(new BeamState(state.row, state.column+1), new BeamState(state.row+1, state.column-1))
+                : List.of(new BeamState(state.row+1, state.column()));
+    }
+
+    private void updateBeamStates(Map<BeamState, Long> nextBeamStates) {
+        beamStates.clear();
+        for (BeamState state : nextBeamStates.keySet()) {
+            beamStates.put(state, nextBeamStates.get(state));
+        }
     }
 
     @Override
-    public List<Grid> simulate() {
-        for (int i = 0; i < timelines.getFirst().rows(); i++) {
+    public QuantumGridSimulator simulate() {
+        beamStates.clear();
+        beamStates.put(getFirstBeamState(grid), 1L);
+        while (canContinue()) {
             this.step();
+            beamStates.keySet().forEach(System.out::println);
         }
-        return timelines;
+        System.out.println("Simulation done");
+        return this;
+    }
+
+    private boolean canContinue() {
+        for (BeamState state : beamStates.keySet()) {
+            if (state.row + 1 < grid.rows()) return true;
+        }
+        return false;
+    }
+
+    public long countTimelines() {
+        return beamStates.keySet().stream()
+                .map(beamStates::get)
+                .reduce(0L, Long::sum);
+    }
+
+    private record BeamState(int row, int column) {
+        @Override
+        public String toString() {
+            return "BeamState{" +
+                    "row=" + row +
+                    ", column=" + column +
+                    '}';
+        }
     }
 }
