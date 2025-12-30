@@ -20,4 +20,12 @@ public record Cell (State state) {
     public static Cell Start() {
         return new Cell(State.Start);
     }
+
+    @Override
+    public String toString() {
+        if (state == State.Start) return "S";
+        if (state == State.TachyonBeam) return "|";
+        if (state == State.Splitter) return "^";
+        return ".";
+    }
 }
