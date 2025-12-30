@@ -58,9 +58,7 @@ public class QuantumGridSimulator implements Simulator{
         beamStates.put(getFirstBeamState(grid), 1L);
         while (canContinue()) {
             this.step();
-            beamStates.keySet().forEach(System.out::println);
         }
-        System.out.println("Simulation done");
         return this;
     }
 
@@ -77,13 +75,5 @@ public class QuantumGridSimulator implements Simulator{
                 .reduce(0L, Long::sum);
     }
 
-    private record BeamState(int row, int column) {
-        @Override
-        public String toString() {
-            return "BeamState{" +
-                    "row=" + row +
-                    ", column=" + column +
-                    '}';
-        }
-    }
+    private record BeamState(int row, int column) { }
 }
