@@ -40,8 +40,12 @@ public class Grid {
         grid.put(new Position(row, column), cell);
     }
 
+    public boolean isInBounds(int row, int column) {
+        return row >= 0 && row < rows && column >= 0 && column < columns;
+    }
+
     public boolean isNotInBounds(int row, int column) {
-        return row < 0 || row >= rows || column < 0 || column >= columns;
+        return !isInBounds(row, column);
     }
 
     public int getActiveSplitters() {
