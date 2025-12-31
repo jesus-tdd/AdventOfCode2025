@@ -11,37 +11,37 @@ import static org.assertj.core.api.Assertions.*;
 public class Day6BTest {
     @Test
     public void cephalopod_parser_two_element_sum_test() {
-        Operation parsedString = CephalopodOperationParser.parse(new String[] {"01", "01", "+"});
+        Operation parsedString = new CephalopodOperationParser().parse("01\n01\n+");
         assertThat(parsedString.equals(new Sum(List.of(11L, 0L)))).isTrue();
     }
 
     @Test
     public void cephalopod_parser_three_element_sum_test() {
-        Operation parsedString = CephalopodOperationParser.parse(new String[] {"123", "123", "+"});
+        Operation parsedString = new CephalopodOperationParser().parse("123\n123\n+");
         assertThat(parsedString.equals(new Sum(List.of(33L, 22L, 11L)))).isTrue();
     }
 
     @Test
     public void cephalopod_parser_three_element_triple_sum_test() {
-        Operation parsedString = CephalopodOperationParser.parse(new String[] {"123", "456", "789", "+"});
+        Operation parsedString = new CephalopodOperationParser().parse("123\n456\n789\n+");
         assertThat(parsedString.equals(new Sum(List.of(369L, 258L, 147L)))).isTrue();
     }
 
     @Test
     public void cephalopod_parser_two_element_product_test() {
-        Operation parsedString = CephalopodOperationParser.parse(new String[] {"01", "01", "*"});
+        Operation parsedString = new CephalopodOperationParser().parse("01\n01\n*");
         assertThat(parsedString.equals(new Product(List.of(11L, 0L)))).isTrue();
     }
 
     @Test
     public void cephalopod_parser_three_element_product_test() {
-        Operation parsedString = CephalopodOperationParser.parse(new String[] {"123", "123", "*"});
+        Operation parsedString = new CephalopodOperationParser().parse("123\n123\n*");
         assertThat(parsedString.equals(new Product(List.of(33L, 22L, 11L)))).isTrue();
     }
 
     @Test
     public void cephalopod_parser_three_element_triple_product_test() {
-        Operation parsedString = CephalopodOperationParser.parse(new String[] {"123", "456", "789", "*"});
+        Operation parsedString = new CephalopodOperationParser().parse("123\n456\n789\n*");
         assertThat(parsedString.equals(new Product(List.of(369L, 258L, 147L)))).isTrue();
     }
 }
