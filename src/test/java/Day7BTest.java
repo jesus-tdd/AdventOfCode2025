@@ -37,7 +37,7 @@ public class Day7BTest {
     private static class TestGridBuilder {
         public static Grid from(String... strings) {
             List<List<Cell>> list = new ArrayList<>();
-            Arrays.stream(strings).map(CellListParser::parse).forEach(list::add);
+            Arrays.stream(strings).map(new CellListParser()::parse).forEach(list::add);
 
             return new GridBuilder()
                     .rows(list.size())
