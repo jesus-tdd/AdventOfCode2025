@@ -13,14 +13,11 @@ public class Main {
         JunctionBoxStore boxes = new JunctionBoxStore();
         List<JunctionBoxPair> pairs = boxes.getNClosestPairs(1000);
 
-        CircuitStore circuits = new CircuitStore();
-        for (JunctionBoxPair pair : pairs) {
-            circuits.put(pair);
-        }
+        CircuitStore circuits = CircuitStore.create().put(pairs);
 
-        long productOfSizes = circuits.getNLargest(3).stream()
+        int productOfSizes = circuits.getNLargest(3).stream()
                 .map(Circuit::size)
-                .reduce(1, (s1, s2) -> s1 * s2);
+                .reduce(1, Math::multiplyExact);
 
         System.out.println("Product: " + productOfSizes);
     }
