@@ -7,7 +7,6 @@ import software.aoc.day08.common.model.JunctionBoxPair;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Stream;
 
 public class CircuitStore {
     private final List<Circuit> circuits;
@@ -49,7 +48,7 @@ public class CircuitStore {
 
     public List<Circuit> getNLargest(int n) {
         return circuits.stream()
-                .sorted((c1, c2) -> Double.compare(c2.size(), c1.size()))
+                .sorted((c1, c2) -> Integer.compare(c2.size(), c1.size()))
                 .limit(n)
                 .toList();
     }
