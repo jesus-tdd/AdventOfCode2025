@@ -6,20 +6,25 @@ import software.aoc.day08.common.model.JunctionBoxPair;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class CircuitStore {
     private final List<Circuit> circuits;
 
-    public CircuitStore() {
+    private CircuitStore() {
         circuits = new ArrayList<>();
     }
 
-    public void put(JunctionBoxPair pair) {
+    public CircuitStore put(List<JunctionBoxPair> pairs) {
+        pairs.forEach(this::put);
+        return this;
+    }
+
+    public CircuitStore put(JunctionBoxPair pair) {
         if(contains(pair)) joinCircuitsWith(pair.box1(), pair.box2());
         else if (contains(pair.box1())) getCircuitWith(pair.box1()).put(pair.box2());
         else if (contains(pair.box2())) getCircuitWith(pair.box2()).put(pair.box1());
         else circuits.add(Circuit.create().put(pair));
+        return this;
     }
 
     private void joinCircuitsWith(JunctionBox box1, JunctionBox box2) {
@@ -29,10 +34,10 @@ public class CircuitStore {
     }
 
     private Circuit getCircuitWith(JunctionBox box) {
-        for (Circuit circuit : circuits) {
-            if (circuit.contains(box)) return circuit;
-        }
-        throw new NoSuchElementException();
+        return circuits.stream()
+                .filter(c -> c.contains(box))
+                .findAny()
+                .orElseThrow();
     }
 
     private boolean contains(JunctionBoxPair pair) {
@@ -40,10 +45,7 @@ public class CircuitStore {
     }
 
     private boolean contains(JunctionBox box) {
-        for (Circuit circuit : circuits) {
-            if (circuit.contains(box)) return true;
-        }
-        return false;
+        return circuits.stream().anyMatch(c -> c.contains(box));
     }
 
     public List<Circuit> getNLargest(int n) {
@@ -55,5 +57,9 @@ public class CircuitStore {
 
     public int size() {
         return circuits.size();
+    }
+
+    public static CircuitStore create() {
+        return new CircuitStore();
     }
 }

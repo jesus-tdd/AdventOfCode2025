@@ -131,20 +131,17 @@ public class Day8ATest {
 
 
         private static CircuitStore EMPTY_STORE() {
-            return new CircuitStore();
+            return CircuitStore.create();
         }
 
         private static CircuitStore ONE_CIRCUIT_STORE() {
-            CircuitStore store = new CircuitStore();
-            store.put(X0Y0Z0_X1Y0Z0_PAIR());
-            return store;
+            return CircuitStore.create().put(X0Y0Z0_X1Y0Z0_PAIR());
         }
 
         public static CircuitStore TWO_CIRCUIT_STORE() {
-            CircuitStore store = new CircuitStore();
-            store.put(X0Y0Z0_X1Y0Z0_PAIR());
-            store.put(X0Y1Z0_X0Y0Z1_PAIR());
-            return store;
+            return CircuitStore.create()
+                    .put(X0Y0Z0_X1Y0Z0_PAIR())
+                    .put(X0Y1Z0_X0Y0Z1_PAIR());
         }
     }
 }
