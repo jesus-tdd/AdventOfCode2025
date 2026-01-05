@@ -20,7 +20,19 @@ public class Circuit {
         return this;
     }
 
-    public double size() {
+    public Circuit put(JunctionBox box) {
+        boxes.add(box);
+        return this;
+    }
+
+    public Circuit extend(Circuit other) {
+        for (JunctionBox box : other.boxes) {
+            this.put(box);
+        }
+        return this;
+    }
+
+    public int size() {
         return boxes.size();
     }
 
