@@ -7,6 +7,7 @@ import software.aoc.day08.common.model.JunctionBoxPair;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 public class CircuitStore {
     private final List<Circuit> circuits;
@@ -25,7 +26,7 @@ public class CircuitStore {
     private void joinCircuitsWith(JunctionBox box1, JunctionBox box2) {
         if (getCircuitWith(box1) == getCircuitWith(box2)) return;
         getCircuitWith(box1).extend(getCircuitWith(box2));
-        circuits.remove(getCircuitWith(box2));
+        circuits.removeIf(c -> c.contains(box2) && !c.contains(box1));
     }
 
     private Circuit getCircuitWith(JunctionBox box) {
