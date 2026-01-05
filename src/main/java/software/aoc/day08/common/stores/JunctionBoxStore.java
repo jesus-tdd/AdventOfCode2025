@@ -17,7 +17,7 @@ public class JunctionBoxStore {
 
     public List<JunctionBoxPair> getNClosestPairs(int n) {
         return getAllPairs()
-                .sorted((b1, b2) -> Double.compare(b1.distance(), b2.distance()))
+                .sorted((b1, b2) -> Long.compare(b1.distanceSquared(), b2.distanceSquared()))
                 .limit(n)
                 .toList();
     }
