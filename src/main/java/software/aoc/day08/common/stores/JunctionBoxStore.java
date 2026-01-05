@@ -12,7 +12,7 @@ public class JunctionBoxStore {
     private final List<JunctionBox> boxes;
 
     public JunctionBoxStore() {
-        boxes = new JunctionBoxLoader(new JunctionBoxParser()::parse).loadAll();;
+        boxes = new JunctionBoxLoader(new JunctionBoxParser()::parse).loadAll();
     }
 
     public List<JunctionBoxPair> getNClosestPairs(int n) {
