@@ -6,7 +6,7 @@ import java.util.Set;
 public class Circuit {
     private final Set<JunctionBox> boxes;
 
-    public Circuit() {
+    private Circuit() {
         boxes = new HashSet<>();
     }
 
